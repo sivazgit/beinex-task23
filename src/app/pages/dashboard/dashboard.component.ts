@@ -11,7 +11,7 @@ export class DashboardComponent {
   public empDetails!:any;
 
   constructor(private ds:DataService){
-    this.empDetails=this.ds.getData();
+    this.empDetails=this.ds.getEmpDetails();
     console.log(this.empDetails);
   
   }

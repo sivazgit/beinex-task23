@@ -10,54 +10,60 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class HomeComponent {
 
-  empForm:any = FormGroup;
+  empForm!: FormGroup;
 
   constructor(private fb:FormBuilder, private ds:DataService, private router:Router){}
-ngOnInit(): void{
+  ngOnInit(): void{
 
   this.empForm =  this.fb.group({
-    fname: ['San', Validators.required],
+    fname: ['San',[ Validators.required]],
    lname: ['',[Validators.required]],
-   email:['',Validators.required],
-    password:['',Validators.required],
-    conpass:['',Validators.required],
-    phone:['',Validators.required],
-    address:['',Validators.required],
-    age:['',Validators.required],
-    education:['',Validators.required],
-    post:['',Validators.required],
-    country:['',Validators.required],
-    state:['',Validators.required],
-    area:['',Validators.required],
-    message:['',Validators.required]
-
-
+   email:['', [Validators.required,Validators.pattern]],
+    password:['',[Validators.required,Validators.pattern]],
+    conpass:['',[Validators.required]],
+    phone:['',[Validators.required,Validators.pattern]],
+    address:['',[Validators.required]],
+    age:['',[Validators.required]],
+    education:['',[Validators.required]],
+    post:['',[Validators.required]],
+    country:['',[Validators.required]],
+    state:['',[Validators.required]],
+    area:['',[Validators.required]],
+    message:['',[Validators.required]]
 
 
   });
 }
 
-saveData(){
+onSubmit(){
   if(this.empForm.valid){
-    let fname = this.empForm.value.fname;
-    let lname = this.empForm.value.lname;
-    let email = this.empForm.value.email;
-    let password = this.empForm.value.password;
-    let conpass = this.empForm.value.conpass;
-    let phone = this.empForm.value.phone;
-    let address = this.empForm.value.address;
-    let age = this.empForm.value.age;
-    let education = this.empForm.value.education;
-    let post = this.empForm.value.post;
-    let country = this.empForm.value.country;
-    let state = this.empForm.value.state;
-    let area = this.empForm.value.area;
-    let message = this.empForm.value.message;
-    this.ds.addData(fname,lname,email,password,conpass,phone,address,age,education,post,country,state,area,message);
-    this.router.navigateByUrl('dashboard');
+    if(this.empForm.value.password===this.empForm.value.conpass){
+      let emp={
+        fname:this.empForm.value.fname,
+        lname:this.empForm.value.lname,
+        email:this.empForm.value.email,
+        password:this.empForm.value.password,
+        conpass:this.empForm.value.conpass,
+        phone:this.empForm.value.phone,
+        address:this.empForm.value.address,
+        age:this.empForm.value.age,
+        education:this.empForm.value.education,
+        post:this.empForm.value.post,
+        country:this.empForm.value.country,
+        state:this.empForm.value.state,
+        area:this.empForm.value.area,
+        message:this.empForm.value.message
+
+
+      }
+      this.ds.addEmpDetails(emp);
+      console.log(emp);
+      this.router.navigateByUrl('/dashboard');
+      // console.log(emp);
+    }
+  }
+}
 
   }
 
 
-}
-}

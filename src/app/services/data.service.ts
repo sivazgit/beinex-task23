@@ -1,66 +1,63 @@
 import { HttpClient } from '@angular/common/http';
+import { Country, State } from 'country-state-city';
 import { Injectable } from '@angular/core';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  
-  public fname: any;
-  public lname: any;
-  public email: any;
-  public password: any;
-  public conpass: any;
-  public phone: any;
-  public address: any;
-  public age: any;
-  public education: any;
-  public post: any;
-  public country: any;
-  public state: any;
-  public area: any;
-  public message: any;
+
+  public empDetails = {
+    fname:'San',
+    lname: 'Ryan',
+    email: '',
+    password: '',
+    phone: '',
+    address: '',
+    age: '',
+    education: '',
+    country: '',
+    state: '',
+    message: ''
+  }
+
 
 
   constructor(private http: HttpClient) { }
-  addData(fname: any, lname: any, email: any, password: any, conpass: any, phone: any,
-    address: any, age: any, education: any, post: any, country: any, state: any, area: any, message: any) {
-      this.fname = fname;
-      this.lname = lname;
-      this.email = email;
-      this.password = password;
-      this.conpass = conpass;
-      this.phone = phone;
-      this.address = address;
-      this.age = age;
-      this.education = education;
-      this.post = post;
-      this.country = country;
-      this.state = state;
-      this.area = area;
-      this.message = message;
-
-  }
 
 
-  getData(){
-    let empDetails={
-      fname:this.fname,
-      lname:this.lname,
-      email:this.email,
-      password:this.password,
-      conpass:this.conpass,
-      phone:this.phone,
-      address:this.address,
-      age:this.age,
-      education:this.education,
-      post:this.post,
-      country:this.country,
-      state:this.state,
-      area:this.area,
-      message:this.message
-      
+  addEmpDetails(emp: any) {
+      this.empDetails.fname = emp.fname;
+      this.empDetails.lname = emp.lname;
+      this.empDetails.email = emp.email;
+      this.empDetails.password = emp.password;
+      this.empDetails.phone = emp.phone;
+      this.empDetails.address= emp.address;
+      this.empDetails.age= emp.age;
+      this.empDetails.education= emp.education;
+      this.empDetails.country= emp.country;
+      this.empDetails.state= emp.state;
+      this.empDetails.message= emp.message;
     }
-    return empDetails;
+
+    getEmpDetails() {
+      return this.empDetails;
+    }
+
+
+    getCountryList() {
+      return Country.getAllCountries();
+    }
+  
+    getStatesAndCountry(counCode: string) {
+      return State.getStatesOfCountry(counCode)
+    }
   }
-}
+
+  
+
+
+
+
+ 

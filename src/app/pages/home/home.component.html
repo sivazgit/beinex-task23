@@ -5,25 +5,57 @@
         <div class="col-lg-6 col-sm-12">
             <div class="content">
                 <h2>Profile Register</h2>
-               <form [formGroup]="empForm" (ngSubmit)="saveData()">
+               <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
                 <div class="details">
+                     
+                    <!-- left section -->
+
                     <div class="left">
                         <h4>General Info</h4>
-                        <div class="inp"><label for="">FirstName :</label><input type="text" placeholder="enter firstname" class="form-control" formControlName="fname" name="fname"></div>
-                        <div class="inp"><label for="">LastName :</label><input type="text" placeholder="enter lastname" class="form-control" formControlName="lname" name="lname"></div>
-                        <div class="inp"><label for="">Email ID :</label><input type="email" placeholder="enter email" class="form-control" formControlName="email" name="email"></div>
-                        <div class="inp"><label for="">Password :</label><input type="password" placeholder="enter password" class="form-control" formControlName="password" name="password"></div>
-                        <div class="inp"><label for="">Confirm Password :</label><input type="password" placeholder="confirm password" class="form-control" formControlName="conpassword" name="conpassword"></div>
-                        <div class="inp"><label for="">Phone Number :</label><input type="tel" placeholder="enter Phone number" class="form-control" formControlName="phone" name="phone"></div>
-                        <div class="inp"><label for="">Address :</label><textarea name="address" id="" cols="" rows="" placeholder="enter address" class="form-control" formControlName="address" name="address"></textarea></div>
+                        <div class="inp"><label for="">FirstName :</label><input type="text" pattern="^[a-z\s\.]*$" placeholder="enter firstname" class="form-control" formControlName="fname" name="fname"></div>
+                        <div class="warning" *ngIf="this.empForm.get('fname')?.touched && this.empForm.get('fname')?.invalid">Please enter a first name!</div>
+
+
+                        <div class="inp"><label for="">LastName :</label><input type="text"  pattern="^[a-z\s\.]*$" placeholder="enter lastname" class="form-control" formControlName="lname" name="lname"></div>
+                        <div class="warning" *ngIf="this.empForm.get('lname')?.touched && this.empForm.get('lname')?.invalid">Please enter a last name!</div>
+
+                        
+                        <div class="inp"><label for="">Email ID :</label><input type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="enter email" class="form-control" formControlName="email" name="email"></div>
+                        <div class="warning" *ngIf="this.empForm.get('email')?.touched && this.empForm.get('email')?.invalid">Invalid email</div>
+
+                        
+                        <div class="inp"><label for="">Password :</label><input type="password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="15"  placeholder="enter password" class="form-control" formControlName="password" name="password"></div>
+                        <div class="warning" *ngIf="this.empForm.get('password')?.touched && this.empForm.get('password')?.invalid">Please enter a valid Password!</div>
+
+                        
+                        <div class="inp"><label for="">Confirm Password :</label><input type="password" placeholder="confirm password" class="form-control" formControlName="conpass" name="conpass"></div>
+                        <div class="warning" *ngIf="this.empForm.get('conpass')?.touched && this.empForm.get('conpass')?.invalid">Password doesn't match!</div>
+
+                        
+                        <div class="inp"><label for="">Phone Number :</label><input type="tel" pattern="^[0-9]{10}$" placeholder="enter Phone number" class="form-control" formControlName="phone" name="phone"></div>
+                        <div class="warning" *ngIf="this.empForm.get('phone')?.touched && this.empForm.get('phone')?.invalid">Invalid Phone number</div>
+
+                        
+                        <div class="inp"><label for="">Address :</label><textarea name="address"  placeholder="enter address" class="form-control" formControlName="address" name="address"></textarea></div>
+                        <div class="warning" *ngIf="this.empForm.get('address')?.touched && this.empForm.get('address')?.invalid">Enter Maximum 50 Characters</div>
+
 
                     </div>
                     <div class="border-div"></div>
                     <div class="right">
                         <h4>Personal Info</h4>
                         <div class="inp"><label for="">Age :</label><input type="number" placeholder="enter age" class="form-control" formControlName="age" name="age"></div>
+                        <div class="warning" *ngIf="this.empForm.get('age')?.touched && this.empForm.get('age')?.invalid">Please enter age</div>
+
+                        
                         <div class="inp"><label for="">Education :</label><input type="text" placeholder="enter education" class="form-control" formControlName="education" name="education"></div>
+                        <div class="warning" *ngIf="this.empForm.get('education')?.touched && this.empForm.get('education')?.invalid">Please enter education</div>
+
+                        
                         <div class="inp"><label for="">Post Code :</label><input type="text" placeholder="enter postcode" class="form-control" formControlName="post" name="post"></div>
+                        <div class="warning" *ngIf="this.empForm.get('post')?.touched && this.empForm.get('post')?.invalid">Please enter a valid name!</div>
+
+                        
                         <div class="coun">
                             <div class="inp"><label for="country">country :</label><select name="country" id="country" formControlName="country" name="country">
                                 <option value="India">india</option>
@@ -35,9 +67,19 @@
                                 
                               </select></div>
                         </div>
-                        <div class="inp"><label for="">Area :</label><input type="text" placeholder="Street/Area" class="form-control" formControlName="area" name="area"></div>
-                        <div class="inp"><label for="">Message</label><textarea name="message" id="" cols="" rows="" class="form-control" formControlName="message" name="message"></textarea></div>
-                        <button class="btn btn-warning">Save Details</button>   
+                        
+                        <div class="inp"><label for="">Area :</label><input type="text" placeholder="street/area" class="form-control" formControlName="area" name="area"></div>
+                        <div class="warning" *ngIf="this.empForm.get('area')?.touched && this.empForm.get('area')?.invalid">Please enter locality name</div>
+
+                        
+                        
+                        <div class="inp"><label for="">Message</label><textarea name="message" placeholder="enter message" class="form-control" formControlName="message" name="message"></textarea></div>
+                        <div class="warning" *ngIf="this.empForm.get('message')?.touched && this.empForm.get('message')?.invalid">Maximum 15 characters!</div>
+
+                        
+                        
+                        
+                        <button type="submit" class="btn btn-warning">Save Details</button>   
                     </div>   
                                  
                    </div>
