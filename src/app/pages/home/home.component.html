@@ -12,15 +12,15 @@
 
                     <div class="left">
                         <h4>General Info</h4>
-                        <div class="inp"><label for="">FirstName :</label><input type="text" pattern="^[a-z\s\.]*$" placeholder="enter firstname" class="form-control" formControlName="fname" name="fname"></div>
-                        <div class="warning" *ngIf="this.empForm.get('fname')?.touched && this.empForm.get('fname')?.invalid">Please enter a first name!</div>
+                        <div class="inp"><label for="">FirstName :</label><input type="text" pattern="^[A-Za-z\s\.]*$" placeholder="enter firstname" class="form-control" formControlName="fname" name="fname"></div>
+                        <div class="warning" *ngIf="this.empForm.get('fname')?.touched && this.empForm.get('fname')?.invalid">Enter a valid first name!</div>
 
 
-                        <div class="inp"><label for="">LastName :</label><input type="text"  pattern="^[a-z\s\.]*$" placeholder="enter lastname" class="form-control" formControlName="lname" name="lname"></div>
-                        <div class="warning" *ngIf="this.empForm.get('lname')?.touched && this.empForm.get('lname')?.invalid">Please enter a last name!</div>
+                        <div class="inp"><label for="">LastName :</label><input type="text"  pattern="^[A-Za-z\s\.]*$" placeholder="enter lastname" class="form-control" formControlName="lname" name="lname"></div>
+                        <div class="warning" *ngIf="this.empForm.get('lname')?.touched && this.empForm.get('lname')?.invalid">Enter a valid last name!</div>
 
                         
-                        <div class="inp"><label for="">Email ID :</label><input type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="enter email" class="form-control" formControlName="email" name="email"></div>
+                        <div class="inp"><label for="">Email ID :</label><input type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" minlength="15"  placeholder="enter email" class="form-control" formControlName="email" name="email"></div>
                         <div class="warning" *ngIf="this.empForm.get('email')?.touched && this.empForm.get('email')?.invalid">Invalid email</div>
 
                         
@@ -36,7 +36,7 @@
                         <div class="warning" *ngIf="this.empForm.get('phone')?.touched && this.empForm.get('phone')?.invalid">Invalid Phone number</div>
 
                         
-                        <div class="inp"><label for="">Address :</label><textarea name="address"  placeholder="enter address" class="form-control" formControlName="address" name="address"></textarea></div>
+                        <div class="inp"><label for="">Address :</label><textarea name="address" maxlength="50"  placeholder="enter address" class="form-control" formControlName="address" name="address"></textarea></div>
                         <div class="warning" *ngIf="this.empForm.get('address')?.touched && this.empForm.get('address')?.invalid">Enter Maximum 50 Characters</div>
 
 
@@ -57,23 +57,30 @@
 
                         
                         <div class="coun">
-                            <div class="inp"><label for="country">country :</label><select name="country" id="country" formControlName="country" name="country">
-                                <option value="India">india</option>
-                                <option value="saab">Saab</option>
-                              </select></div>
-                              <div class="inp"><label for="state">State :</label><select name="state" id="state" formControlName="state" name="state" >
-                                <option value="Kerala">Kerala</option>
-                                <option value="saab">Saab</option>
-                                
-                              </select></div>
+                            <div class="inp"><label for="country">country :</label><select name="country" formControlName="country">
+                                <option selected>Country</option>
+                                <option *ngFor="let country of countries">{{country.name}}</option>
+                            </select></div>
+                            <div class="warning" *ngIf="this.empForm.get('country')?.touched && this.empForm.get('country')?.invalid">Choose Country!</div>
+
+
+
+                              <div class="inp"><label for="state">State :</label><select name="state" formControlName="state">
+                                <option selected>State</option>
+                                <option *ngFor="let state of states">{{state.name}}</option>
+                            </select></div>
+
+                            <div class="warning" *ngIf="this.empForm.get('state')?.touched && this.empForm.get('state')?.invalid">Choose State!</div>
+
                         </div>
                         
+
+
                         <div class="inp"><label for="">Area :</label><input type="text" placeholder="street/area" class="form-control" formControlName="area" name="area"></div>
                         <div class="warning" *ngIf="this.empForm.get('area')?.touched && this.empForm.get('area')?.invalid">Please enter locality name</div>
 
-                        
-                        
-                        <div class="inp"><label for="">Message</label><textarea name="message" placeholder="enter message" class="form-control" formControlName="message" name="message"></textarea></div>
+                    
+                        <div class="inp"><label for="">Message</label><textarea name="message" maxlength="15" placeholder="enter message" class="form-control" formControlName="message" name="message"></textarea></div>
                         <div class="warning" *ngIf="this.empForm.get('message')?.touched && this.empForm.get('message')?.invalid">Maximum 15 characters!</div>
 
                         

@@ -10,15 +10,17 @@ export class DataService {
 
   public empDetails = {
     fname:'San',
-    lname: 'Ryan',
+    lname: '',
     email: '',
     password: '',
     phone: '',
     address: '',
     age: '',
+    post:'',
     education: '',
     country: '',
     state: '',
+    area:'',
     message: ''
   }
 
@@ -36,8 +38,10 @@ export class DataService {
       this.empDetails.address= emp.address;
       this.empDetails.age= emp.age;
       this.empDetails.education= emp.education;
+      this.empDetails.post= emp.post;
       this.empDetails.country= emp.country;
       this.empDetails.state= emp.state;
+      this.empDetails.area = emp.area;
       this.empDetails.message= emp.message;
     }
 
@@ -48,10 +52,11 @@ export class DataService {
 
     getCountryList() {
       return Country.getAllCountries();
+      
     }
   
-    getStatesAndCountry(counCode: string) {
-      return State.getStatesOfCountry(counCode)
+    getStatesCountry(code: any) {
+      return State.getStatesOfCountry(code)
     }
   }
 

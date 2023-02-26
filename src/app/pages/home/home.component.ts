@@ -11,8 +11,13 @@ import { DataService } from 'src/app/services/data.service';
 export class HomeComponent {
 
   empForm!: FormGroup;
+  public countries!: any;
+  public states!: any;
+  public code!: any;
 
-  constructor(private fb:FormBuilder, private ds:DataService, private router:Router){}
+  constructor(private fb:FormBuilder, private ds:DataService, private router:Router){
+    this.countries = this.ds.getCountryList();
+  }
   ngOnInit(): void{
 
   this.empForm =  this.fb.group({
@@ -33,7 +38,24 @@ export class HomeComponent {
 
 
   });
+
+  this.empForm.get('country')?.valueChanges.subscribe((country: any) => {
+    
+      for (let country of this.countries) {
+        if (country.name === this.empForm.get('country')?.value) {
+          this.code = country.isoCode;
+       
+      }
+    }
+    if (this.empForm.get('country')?.value) {
+      this.states = this.ds.getStatesCountry(this.code);
+    }
+  });
+  
 }
+
+
+
 
 onSubmit(){
   if(this.empForm.valid){
@@ -57,13 +79,16 @@ onSubmit(){
 
       }
       this.ds.addEmpDetails(emp);
-      console.log(emp);
-      this.router.navigateByUrl('/dashboard');
       // console.log(emp);
+      this.router.navigateByUrl('/dashboard');
+     
     }
   }
 }
+}
 
-  }
+
+
+  
 
 
